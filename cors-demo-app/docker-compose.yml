@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    container_name: vulnerable-backend
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  frontend:
+    build: ./frontend
+    container_name: vulnerable-frontend
+    restart: unless-stopped
+    networks:
+      - app-network
+
+  nginx:
+    build: ./nginx
+    ports:
+      - "80:80"
+    container_name: vulnerable-nginx
+    restart: unless-stopped
+    depends_on:
+      - backend
+      - frontend
+    networks:
+      - app-network
+
+  malicious-frontend:
+    build: ./malicious-frontend
+    ports:
+      - "8080:80"
+    container_name: malicious-frontend
+    restart: unless-stopped
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

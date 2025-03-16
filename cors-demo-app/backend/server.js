@@ -7,7 +7,7 @@ const port = 3000;
 
 // Vulnerable CORS configuration
 app.use(cors({
-    origin: false, // Reflects the request origin
+    origin: true, // Reflects the request origin
     credentials: true // Allows cookies to be sent
 }));
 
